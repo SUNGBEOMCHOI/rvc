@@ -1,0 +1,3 @@
+[submodule "ai/Retrieval-based-Voice-Conversion-WebUI"]
+	path = ai/Retrieval-based-Voice-Conversion-WebUI
+	url = https://github.com/SUNGBEOMCHOI/Retrieval-based-Voice-Conversion-WebUI.git
