@@ -11,6 +11,7 @@ from sqlalchemy.orm import relationship
 
 from app.db.base import Base
 from .user_model import User
+from .voice_project_model import VoiceModel
 
 class CoverProject(Base):
     __tablename__ = "cover_projects"
@@ -18,7 +19,7 @@ class CoverProject(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now)
-    voice_model_id = Column(Integer, ForeignKey("voice_models.id"))
+    voice_model = relationship("VoiceModel")
     is_generation_done = Column(Boolean, default=False, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", backref="cover_projects")

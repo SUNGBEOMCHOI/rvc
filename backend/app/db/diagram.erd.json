@@ -4,9 +4,9 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -1091.3076,
-    "scrollLeft": -702.1311,
-    "zoomLevel": 0.8,
+    "scrollTop": -578.9629,
+    "scrollLeft": -324,
+    "zoomLevel": 0.9,
     "show": 431,
     "database": 4,
     "databaseName": "",
@@ -292,11 +292,9 @@
           "7BpqTHr4a90tAts-f_D3T",
           "OLV3LSKUakFc1mGe9ULV5",
           "2sgfNjz3cOWhr6CrTbBEX",
-          "CCriojRKLr2dCeE6O5LBN",
           "Y41zKSpVJ_Yu_FbmrtIaM",
-          "uFjnQutT66I8fwefZyyri",
-          "-twZ_x3P7S7AvLzpkuei7",
           "_b-AEibUjlrI1Eh4Lyjud",
+          "CCriojRKLr2dCeE6O5LBN",
           "kMM5aEYRNl54oL3k3Bg0Y",
           "Qvl4DvIbQ4mwvRb6KR9K8"
         ],
@@ -305,7 +303,6 @@
           "n2KIVFMOrau7hfXmRMusA",
           "OLV3LSKUakFc1mGe9ULV5",
           "2sgfNjz3cOWhr6CrTbBEX",
-          "CCriojRKLr2dCeE6O5LBN",
           "rNFsZ4ryKmg4zuqOpDTgR",
           "Y41zKSpVJ_Yu_FbmrtIaM",
           "WtYsHwiHX9stpZIcBYxtp",
@@ -313,6 +310,7 @@
           "uFjnQutT66I8fwefZyyri",
           "-twZ_x3P7S7AvLzpkuei7",
           "_b-AEibUjlrI1Eh4Lyjud",
+          "CCriojRKLr2dCeE6O5LBN",
           "kMM5aEYRNl54oL3k3Bg0Y",
           "Qvl4DvIbQ4mwvRb6KR9K8"
         ],
@@ -325,7 +323,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1713652782816,
+          "updateAt": 1713665362074,
           "createAt": 1713625210537
         }
       },
@@ -1020,20 +1018,20 @@
       "_b-AEibUjlrI1Eh4Lyjud": {
         "id": "_b-AEibUjlrI1Eh4Lyjud",
         "tableId": "R2mZ-79vcwcFKuGVUOSNs",
-        "name": "uploaded_music_id",
+        "name": "uploaded_music",
         "comment": "",
         "dataType": "TEXT",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
-          "widthName": 107,
+          "widthName": 91,
           "widthComment": 60,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1713626666739,
+          "updateAt": 1713665347920,
           "createAt": 1713625294195
         }
       },
@@ -2040,20 +2038,20 @@
       "5E0OC5xZ6WWt1JqGQV6Gm": {
         "id": "5E0OC5xZ6WWt1JqGQV6Gm",
         "tableId": "o7kdLSp4pO3v1Igl7Ijcy",
-        "name": "voice_model_id",
+        "name": "voice_model",
         "comment": "",
-        "dataType": "TEXT",
+        "dataType": "VOICEMODEL",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
-          "widthName": 87,
+          "widthName": 71,
           "widthComment": 60,
-          "widthDataType": 60,
+          "widthDataType": 78,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1713631024757,
+          "updateAt": 1713664303698,
           "createAt": 1713630468448
         }
       },
@@ -2746,7 +2744,7 @@
             "7BpqTHr4a90tAts-f_D3T"
           ],
           "x": 877.3542,
-          "y": 1355.0639,
+          "y": 1307.0639,
           "direction": 8
         },
         "end": {
@@ -2774,7 +2772,7 @@
             "7BpqTHr4a90tAts-f_D3T"
           ],
           "x": 998.8542,
-          "y": 1207.0639,
+          "y": 1183.0639,
           "direction": 2
         },
         "end": {
@@ -2858,7 +2856,7 @@
             "7BpqTHr4a90tAts-f_D3T"
           ],
           "x": 634.3542,
-          "y": 1355.0639,
+          "y": 1307.0639,
           "direction": 8
         },
         "end": {
@@ -3637,7 +3635,7 @@
       1713625294194,
       -1,
       {
-        "name": 1713625321426,
+        "name": 1713665347919,
         "dataType": 1713626666738,
         "options(notNull)": 1713625324317
       }
@@ -4306,8 +4304,8 @@
       1713630468447,
       -1,
       {
-        "name": 1713630883994,
-        "dataType": 1713631015400,
+        "name": 1713664287614,
+        "dataType": 1713664303697,
         "options(notNull)": 1713631024756
       }
     ],
@@ -4334,7 +4332,7 @@
     "uFjnQutT66I8fwefZyyri": [
       "tableColumnEntities",
       1713630902220,
-      -1,
+      1713665356497,
       {
         "options(notNull)": 1713630902220,
         "name": 1713630914709,
@@ -4571,7 +4569,7 @@
     "-twZ_x3P7S7AvLzpkuei7": [
       "tableColumnEntities",
       1713652675381,
-      -1,
+      1713665350270,
       {
         "name": 1713652684111,
         "dataType": 1713652702651,

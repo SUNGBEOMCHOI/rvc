@@ -11,3 +11,10 @@ DATABASE_URL = "sqlite:///./data/rvc.db"  # 예: SQLite 데이터베이스 사�
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
