@@ -20,4 +20,3 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.now)
     is_active = Column(Boolean, default=True, nullable=False)
     is_superuser = Column(Boolean, default=False, nullable=False)
-    

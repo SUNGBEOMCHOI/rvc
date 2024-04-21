@@ -3,6 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.crud import user_crud
 
 app = FastAPI()
 
@@ -18,7 +19,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/items/")
-def create_item(item: str, db: Session = Depends(get_db)):
-    # 아이템 생성 로직
-    pass
+app.include_router(user_crud.router)
