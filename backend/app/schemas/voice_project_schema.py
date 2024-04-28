@@ -20,6 +20,6 @@ class VoiceModelSchema(BaseModel):
     storage_path: str
 
 # Import and update_forward_refs at the end of the file
-VoiceModelProjectSchema.update_forward_refs()
-UploadedVoiceSchema.update_forward_refs()
-VoiceModelSchema.update_forward_refs()
+VoiceModelProjectSchema.model_rebuild()
+UploadedVoiceSchema.model_rebuild()
+VoiceModelSchema.model_rebuild()

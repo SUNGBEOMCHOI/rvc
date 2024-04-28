@@ -15,5 +15,5 @@ class GeneratedCoverSchema(BaseModel):
     storage_path: str
 
 # Import and update_forward_refs at the end of the file
-CoverProjectSchema.update_forward_refs()
-GeneratedCoverSchema.update_forward_refs()
+CoverProjectSchema.model_rebuild()
+GeneratedCoverSchema.model_rebuild()

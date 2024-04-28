@@ -11,4 +11,5 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_SECRET: str = os.getenv("GOOGLE_CLIENT_SECRET")
     REDIRECT_URI: str = "http://127.0.0.1:8000/callback"
 
-settings = Settings()
+def get_settings():
+    return Settings()

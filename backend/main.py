@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.db.session import get_db
 from app.api.routers import user_router
-from app.services import google_auth
+from app.api.routers import google_auth_router
 
 app = FastAPI()
 
@@ -21,4 +21,4 @@ app.add_middleware(
 )
 
 app.include_router(user_router.router)
-app.include_router(google_auth.router)
+app.include_router(google_auth_router.router)

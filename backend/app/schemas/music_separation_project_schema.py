@@ -26,7 +26,7 @@ class SeparatedVoiceSchema(BaseModel):
     storage_path: str
 
 # Import and update_forward_refs at the end of the file
-MusicSeparationProjectSchema.update_forward_refs()
-UploadedMusicSchema.update_forward_refs()
-SeparatedInstrumentSchema.update_forward_refs()
-SeparatedVoiceSchema.update_forward_refs()
+MusicSeparationProjectSchema.model_rebuild()
+UploadedMusicSchema.model_rebuild()
+SeparatedInstrumentSchema.model_rebuild()
+SeparatedVoiceSchema.model_rebuild()
