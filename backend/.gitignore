@@ -1,6 +1,6 @@
 *.db
 **/__pycache__/
 **/migrations/
-.env
 alembic.ini
 create.txt
+.env

@@ -3,7 +3,8 @@ from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
-from app.crud import user_crud
+from app.api.routers import user_router
+from app.services import google_auth
 
 app = FastAPI()
 
@@ -19,4 +20,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(user_crud.router)
+app.include_router(user_router.router)
+app.include_router(google_auth.router)

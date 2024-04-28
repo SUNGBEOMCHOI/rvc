@@ -1,3 +1,6 @@
 fastapi
 sqlalchemy
 alembic
+uvicorn
+fastapi-authlib
+pydantic-settings
