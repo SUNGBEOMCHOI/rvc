@@ -4,3 +4,9 @@ alembic
 uvicorn
 fastapi-authlib
 pydantic-settings
+httpx
+python-jose[cryptography]
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client

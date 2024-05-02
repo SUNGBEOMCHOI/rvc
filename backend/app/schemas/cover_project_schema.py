@@ -2,18 +2,16 @@ from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel
 
-class CoverProjectSchema(BaseModel):
+class CoverProject(BaseModel):
     name: str
-    created_at: Optional[datetime] = None
+    created_at: datetime | None = None
     is_generation_done: bool
+    generated_cover: Optional['GeneratedCover'] | None = None
 
-    # Use forward references in strings
-    generated_covers: Optional['GeneratedCoverSchema'] = None
-
-class GeneratedCoverSchema(BaseModel):
+class GeneratedCover(BaseModel):
     filename: str
     storage_path: str
 
 # Import and update_forward_refs at the end of the file
-CoverProjectSchema.model_rebuild()
-GeneratedCoverSchema.model_rebuild()
+CoverProject.model_rebuild()
+GeneratedCover.model_rebuild()

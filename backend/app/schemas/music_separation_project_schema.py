@@ -2,31 +2,31 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
 
-class MusicSeparationProjectSchema(BaseModel):
+class MusicSeparationProject(BaseModel):
     name: str
     created_at: datetime
     is_separation_done: bool
 
     # Use forward references to define relationships
-    uploaded_music: Optional['UploadedMusicSchema']
-    separated_instrument: Optional['SeparatedInstrumentSchema'] = None
-    separated_voice: Optional['SeparatedVoiceSchema'] = None
+    uploaded_music: Optional['UploadedMusic']
+    separated_instrument: Optional['SeparatedInstrument'] = None
+    separated_voice: Optional['SeparatedVoice'] = None
 
-class UploadedMusicSchema(BaseModel):
+class UploadedMusic(BaseModel):
     filename: str
     storage_path: str
     youtube_link: str = None
 
-class SeparatedInstrumentSchema(BaseModel):
+class SeparatedInstrument(BaseModel):
     filename: str
     storage_path: str
 
-class SeparatedVoiceSchema(BaseModel):
+class SeparatedVoice(BaseModel):
     filename: str
     storage_path: str
 
 # Import and update_forward_refs at the end of the file
-MusicSeparationProjectSchema.model_rebuild()
-UploadedMusicSchema.model_rebuild()
-SeparatedInstrumentSchema.model_rebuild()
-SeparatedVoiceSchema.model_rebuild()
+MusicSeparationProject.model_rebuild()
+UploadedMusic.model_rebuild()
+SeparatedInstrument.model_rebuild()
+SeparatedVoice.model_rebuild()
