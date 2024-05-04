@@ -8,7 +8,7 @@ sys.path.append(rvc_project_path)
 import configparser
 import ffmpeg
 
-from modules.voice_mr_separation.voice_separation import uvr, initialize_model
+from modules.voice_mr_separation.voice_separation import uvr, initialize_voice_separation_model
 
 def load_config():
     config = configparser.ConfigParser()
@@ -26,8 +26,10 @@ class VoiceConversionModule:
         # Setting up voice separation model
         self.voice_separation_config = config['VOICE_SEPARATION']
         model_name = self.voice_separation_config.get('model_name')
-        agg = self.voice_separation_config.get('agg')
-        self.voice_separation_model = initialize_model(model_name, agg)
+        agg = self.voice_separation_config.getint('agg')
+        device = self.voice_separation_config.get('device')
+        is_half = self.voice_separation_config.getboolean('is_half')
+        self.voice_separation_model = initialize_voice_separation_model(model_name, agg, device, is_half)
 
     def voice_separation(self, music_path, save_root_vocal, save_root_ins):
         agg = self.voice_separation_config.get('agg')
@@ -37,6 +39,8 @@ class VoiceConversionModule:
 
 
 if __name__ == "__main__":
+
+    # Test voice separation
     music_path = '/home/choi/desktop/rvc/ai/data/user2/input/music/origin_music.mp3'
     save_root_vocal = '/home/choi/desktop/rvc/ai/data/user2/output/music'
     save_root_ins = '/home/choi/desktop/rvc/ai/data/user2/output/music'
