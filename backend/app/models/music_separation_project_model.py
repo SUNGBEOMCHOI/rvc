@@ -22,7 +22,11 @@ class MusicSeparationProject(Base):
     cover_project_id = Column(Integer, ForeignKey("cover_projects.id"))
     is_separation_done = Column(Boolean, default=False, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
-    user = relationship("User", backref="music_separation_projects")
+    user = relationship("User", back_populates="music_separation_projects")
+    cover_project = relationship("CoverProject", back_populates="music_separation_project")
+    uploaded_music = relationship("UploadedMusic", back_populates="music_separation_project")
+    separated_instrument = relationship("SeparatedInstrument", back_populates="music_separation_project")
+    separated_voice = relationship("SeparatedVoice", back_populates="music_separation_project")
 
 class UploadedMusic(Base):
     __tablename__ = "uploaded_musics"
@@ -32,7 +36,7 @@ class UploadedMusic(Base):
     storage_path = Column(String, nullable=False)
     youtube_link = Column(String, nullable=True)
     music_separation_project_id = Column(Integer, ForeignKey("music_separation_projects.id"))
-    music_separation_project = relationship("MusicSeparationProject", backref="uploaded_music")
+    music_separation_project = relationship("MusicSeparationProject", back_populates="uploaded_music")
 
 class SeparatedInstrument(Base):
     __tablename__ = "separated_instruments"
@@ -42,7 +46,7 @@ class SeparatedInstrument(Base):
     filename = Column(String, nullable=False)
     storage_path = Column(String, nullable=False)
     music_separation_project_id = Column(Integer, ForeignKey("music_separation_projects.id"))
-    music_separation_project = relationship("MusicSeparationProject", backref="separated_instrument")
+    music_separation_project = relationship("MusicSeparationProject", back_populates="separated_instrument")
 
 class SeparatedVoice(Base):
     __tablename__ = "separated_voices"
@@ -52,4 +56,4 @@ class SeparatedVoice(Base):
     filename = Column(String, nullable=False)
     storage_path = Column(String, nullable=False)
     music_separation_project_id = Column(Integer, ForeignKey("music_separation_projects.id"))
-    music_separation_project = relationship("MusicSeparationProject", backref="separated_voice")
+    music_separation_project = relationship("MusicSeparationProject", back_populates="separated_voice")

@@ -11,6 +11,9 @@ class VoiceModelProject(BaseModel):
     uploaded_voices: List['UploadedVoice'] = []
     voice_model: Optional['VoiceModel'] = None
 
+class VoiceModelProjectCreate(BaseModel):
+    name: str
+
 class UploadedVoice(BaseModel):
     filename: str
     storage_path: str

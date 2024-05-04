@@ -20,7 +20,9 @@ class VoiceModelProject(Base):
     name = Column(String, nullable=False)
     is_training_done = Column(Boolean, default=False, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
-    user = relationship("User", backref="voice_model_projects")
+    user = relationship("User", back_populates="voice_model_projects")
+    uploaded_voices = relationship("UploadedVoice", back_populates="voice_model_project")
+    voice_model = relationship("VoiceModel", back_populates="voice_model_project")
 
 class UploadedVoice(Base):
     __tablename__ = "uploaded_voices"
@@ -29,7 +31,7 @@ class UploadedVoice(Base):
     filename = Column(String, nullable=False)
     storage_path = Column(String, nullable=False)
     voice_model_project_id = Column(Integer, ForeignKey("voice_model_projects.id"))
-    voice_model_project = relationship("VoiceModelProject", backref="uploaded_voices")
+    voice_model_project = relationship("VoiceModelProject", back_populates="uploaded_voices")
 
 class VoiceModel(Base):
     __tablename__ = "voice_models"
@@ -39,4 +41,4 @@ class VoiceModel(Base):
     filename = Column(String, nullable=False)
     storage_path = Column(String, nullable=False)
     voice_model_project_id = Column(Integer, ForeignKey("voice_model_projects.id"))
-    voice_model_project = relationship("VoiceModelProject", backref="voice_model")
+    voice_model_project = relationship("VoiceModelProject", back_populates="voice_model")

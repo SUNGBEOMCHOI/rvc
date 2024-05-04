@@ -26,12 +26,10 @@ class VoiceConversionModule:
         self.voice_separation_args = self.setting_config(config, 'VOICE_SEPARATION')
         self.inference_config = self.setting_config(config, 'VOICE_INFERENCE')
         self.train_args = self.setting_config(config, 'VOICE_TRAIN')
-        print(self.train_args)
         self.train_args['pretrained_g'] = os.path.join(rvc_project_path, self.train_args.get('pretrained_g'))
         self.train_args['pretrained_d'] = os.path.join(rvc_project_path, self.train_args.get('pretrained_d'))
         
-        self.voice_model = VC(rvc_config)
-        
+        self.voice_model = VC(rvc_config)        
         self.voice_separation_model = initialize_voice_separation_model(self.voice_separation_args)
 
     def voice_separation(self, music_path, save_root_vocal, save_root_ins, format='wav'):  

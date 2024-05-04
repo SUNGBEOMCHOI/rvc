@@ -10,8 +10,6 @@ from fastapi import APIRouter, HTTPException, status, Depends, Query
 from starlette.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
-
-
 from app.core.settings import get_settings
 from app.crud.user_crud import get_user_by_email, create_user
 from app.db.session import get_db

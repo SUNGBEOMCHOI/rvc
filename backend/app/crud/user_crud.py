@@ -13,15 +13,15 @@ import app.models as models
 from app.errors import HttpErrorCode
 from app.core.security import get_user_profile
 
-def get_user(db: Session, user_id: int):
+def get_user_by_user_id(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
 
 def get_user_by_email(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
 
-def get_current_user(db: Session, token: str):
+def get_current_user(db: Session, token: str, settings):
     try:
-        idinfo = get_user_profile(token=token)
+        idinfo = get_user_profile(token=token, settings=settings)
     except HTTPException as e:
         raise HttpErrorCode.CREDENTIALS_ERROR()
     

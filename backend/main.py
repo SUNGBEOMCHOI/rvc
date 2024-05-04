@@ -1,12 +1,20 @@
-from fastapi import Depends, FastAPI, HTTPException
-from starlette.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
+from contextlib import asynccontextmanager
 
-from app.db.session import get_db
+from fastapi import Depends, FastAPI
+from starlette.middleware.cors import CORSMiddleware
+
 from app.api.routers import user_router
 from app.api.routers import google_auth_router
+from app.api.dependencies.singleton_voice_conversion_module import VoiceConversionManager
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Load the Voice Conversion model
+    VoiceConversionManager() # Singleton Voice Conversion instance 생성
+    yield
+    print("Shutting down the Voice Conversion model")
+
+app = FastAPI(lifespan=lifespan)
 
 origins = [
     "http://127.0.0.1:8000",

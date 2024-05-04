@@ -7,15 +7,14 @@ from app.models.user_model import User
 from app.crud.user_crud import get_current_user
 
 from app.errors import HttpErrorCode
-from app.core.settings import get_settings
 
 router = APIRouter(
-    prefix="/user",
+    prefix="/voice_project",
 )
 
 @router.get("/current_user")
-def current_user(token: str, db=Depends(get_db), settings=Depends(get_settings)):
-    user = get_current_user(db, token, settings)
+def current_user(token: str, db=Depends(get_db)):
+    user = get_current_user(db, token)
 
     if not user:
         raise HttpErrorCode.USER_NOT_FOUND()

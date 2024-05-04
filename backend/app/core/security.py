@@ -24,8 +24,8 @@ def exchange_code_for_token(code: str, settings):
         raise HttpErrorCode.EXCHANGE_TOKEN_ERROR()
     return response.json()
 
-def get_user_profile(access_token: str, settings):
-    headers = {"Authorization": f"Bearer {access_token}"}
+def get_user_profile(token: str, settings):
+    headers = {"Authorization": f"Bearer {token}"}
     response = requests.get(settings.GOOGLE_USERINFO_ENDPOINT, headers=headers)
     if response.status_code != 200:
         raise HttpErrorCode.RETRIEVE_USER_INFO_ERROR()
