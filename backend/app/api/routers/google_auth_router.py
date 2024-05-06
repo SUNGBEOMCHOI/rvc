@@ -57,3 +57,7 @@ async def callback(
         create_user(db, user_data)
 
     return {"token_type": "bearer", "access_token": access_token}
+
+@router.get("/token")
+def get_token(token: str = Depends(get_settings)):
+    return {"token": token}

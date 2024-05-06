@@ -10,6 +10,7 @@ class HttpErrorCode(Enum):
     USER_NOT_FOUND = ("User not found", status.HTTP_404_NOT_FOUND, None)
     EXCHANGE_TOKEN_ERROR = ("Failed to exchange authorization code for tokens", status.HTTP_400_BAD_REQUEST, None)
     RETRIEVE_USER_INFO_ERROR = ("Failed to retrieve user information from Google", status.HTTP_400_BAD_REQUEST, None)
+    PROJECT_NOT_FOUND = ("Project not found", status.HTTP_404_NOT_FOUND, None)
 
     def __call__(self):
         return get_exception(self)

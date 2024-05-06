@@ -24,8 +24,9 @@ def get_current_user(db: Session, token: str, settings):
         idinfo = get_user_profile(token=token, settings=settings)
     except HTTPException as e:
         raise HttpErrorCode.CREDENTIALS_ERROR()
-    
+    print(idinfo)
     user = get_user_by_email(db, idinfo["email"])
+    print(user)
     if user is None:
         raise HttpErrorCode.USER_NOT_FOUND()
     

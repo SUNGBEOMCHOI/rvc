@@ -13,5 +13,7 @@ class Settings(BaseSettings):
     GOOGLE_USERINFO_ENDPOINT: str = "https://www.googleapis.com/oauth2/v3/userinfo"
     GOOGLE_REDIRECT_URI: str = "http://127.0.0.1:8000/callback"
 
+    STORAGE_PATH: str = os.getenv("STORAGE_PATH")
+
 def get_settings():
     return Settings()

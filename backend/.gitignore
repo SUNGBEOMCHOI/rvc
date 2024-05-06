@@ -4,3 +4,4 @@
 alembic.ini
 create.txt
 .env
+data/

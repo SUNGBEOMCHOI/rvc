@@ -5,6 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from app.api.routers import user_router
 from app.api.routers import google_auth_router
+from app.api.routers import voice_project_router
 from app.api.dependencies.singleton_voice_conversion_module import VoiceConversionManager
 
 @asynccontextmanager
@@ -30,3 +31,4 @@ app.add_middleware(
 
 app.include_router(user_router.router)
 app.include_router(google_auth_router.router)
+app.include_router(voice_project_router.router)

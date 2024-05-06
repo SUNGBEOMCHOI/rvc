@@ -17,10 +17,11 @@ class VoiceModelProjectCreate(BaseModel):
 class UploadedVoice(BaseModel):
     filename: str
     storage_path: str
+    category: int
 
 class VoiceModel(BaseModel):
-    filename: str
-    storage_path: str
+    filename: str | None = None
+    storage_path: str | None = None
 
 # Import and update_forward_refs at the end of the file
 VoiceModelProject.model_rebuild()
