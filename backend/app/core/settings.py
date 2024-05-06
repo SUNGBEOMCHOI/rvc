@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     GOOGLE_REDIRECT_URI: str = "http://127.0.0.1:8000/callback"
 
     STORAGE_PATH: str = os.getenv("STORAGE_PATH")
+    VOICE_PROJECT_PATH: str = "voice_project"
+    VOICE_UPLOAD_PATH: str = "voice_upload"
+    VOICE_MODEL_PATH: str = "voice_model"
 
 def get_settings():
     return Settings()

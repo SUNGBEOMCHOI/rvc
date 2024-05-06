@@ -74,11 +74,41 @@ def create_uploaded_voice(project_id: str, category: int, file_path: str, db: Se
     db.refresh(db_uploaded_voice)
     return db_uploaded_voice
 
-def train_voice_model(project_id: str, voice_conversion_module, db: Session):
+def train_voice_model(project_id: str, voice_conversion_manager, db: Session, settings):
     project = get_voice_projects_by_project_id(db, project_id)
     if not project:
         raise HttpErrorCode.PROJECT_NOT_FOUND()
     
+    # get all uploaded voices
+    uploaded_voices = project.uploaded_voices
+    if not uploaded_voices:
+        raise HttpErrorCode.NO_UPLOADED_VOICE()
     
+    # check if uploaded voices are in the same directory
+    uploaded_voices_dir = list(set(list(uploaded_voice.storage_path for uploaded_voice in uploaded_voices)))
+    if len(uploaded_voices_dir) >= 2:
+        raise HttpErrorCode.UPLOADED_VOICE_DIR_ERROR()
     
+    # train voice model
+    output_model_dir = f"{settings.STORAGE_PATH}/{project.user_id}/{settings.VOICE_PROJECT_PATH}/{project_id}/{settings.VOICE_MODEL_PATH}"
+    
+    def callback(trained_voice_model_path, trained_index_path):
+        voice_model = create_voice_model(db, project_id, trained_voice_model_path, trained_index_path)
+        project.is_training_done = True
+        project.voice_model = voice_model
+        db.commit()
+        db.refresh(project)
+    
+    voice_conversion_manager.train(uploaded_voices_dir[0], output_model_dir, callback)
 
+def create_voice_model(db: Session, project_id: str, voice_model_path: str, index_path:str):
+    voice_model = models.VoiceModel(
+        voice_model_filename = os.path.basename(voice_model_path),
+        voice_model_storage_path = os.path.dirname(voice_model_path),
+        index_filename = os.path.basename(index_path),
+        index_storage_path = os.path.dirname(index_path),
+        voice_model_project_id=project_id
+    )
+    db.add(voice_model)
+    db.commit()
+    return voice_model

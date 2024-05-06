@@ -48,15 +48,18 @@ class VoiceConversionManager:
     def get_voice_conversion_module(self):
         return self._voice_conversion_module
 
-    def voice_separation(self, music_path, save_root_vocal, save_root_ins, format='wav'):
-        self._request_queue.put(('voice_separation', (music_path, save_root_vocal, save_root_ins), {'format': format}))
+    def voice_separation(self, music_path, save_root_vocal, save_root_ins, format='wav', callback=None):
+        self._request_queue.put(('voice_separation', (music_path, save_root_vocal, save_root_ins, format, callback), {}))
 
-    def inference(self, voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path):
-        self._request_queue.put(('inference', (voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path), {}))
+    def inference(self, voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path, callback=None):
+        self._request_queue.put(('inference', (voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path, callback), {}))
 
-    def train(self, voice_dir, output_dir):
-        self._request_queue.put(('train', (voice_dir, output_dir), {}))
+    def train(self, voice_dir, output_dir, callback):
+        self._request_queue.put(('train', (voice_dir, output_dir, callback), {}))
 
     def stop_request_handler(self):
         self._request_queue.put(None)
         self._request_queue.join()  # Wait for the queue to be empty
+
+def get_voice_conversion_manager():
+    return VoiceConversionManager()

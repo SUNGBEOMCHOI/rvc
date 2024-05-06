@@ -11,6 +11,8 @@ class HttpErrorCode(Enum):
     EXCHANGE_TOKEN_ERROR = ("Failed to exchange authorization code for tokens", status.HTTP_400_BAD_REQUEST, None)
     RETRIEVE_USER_INFO_ERROR = ("Failed to retrieve user information from Google", status.HTTP_400_BAD_REQUEST, None)
     PROJECT_NOT_FOUND = ("Project not found", status.HTTP_404_NOT_FOUND, None)
+    NO_UPLOADED_VOICE = ("No uploaded voice", status.HTTP_404_NOT_FOUND, None)
+    UPLOADED_VOICE_DIR_ERROR = ("Uploaded voice directory must be singular", status.HTTP_400_BAD_REQUEST, None)
 
     def __call__(self):
         return get_exception(self)

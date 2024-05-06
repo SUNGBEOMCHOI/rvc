@@ -14,14 +14,19 @@ class VoiceModelProject(BaseModel):
 class VoiceModelProjectCreate(BaseModel):
     name: str
 
+class VoiceModelProjectTrain(BaseModel):
+    id: str
+
 class UploadedVoice(BaseModel):
     filename: str
     storage_path: str
     category: int
 
 class VoiceModel(BaseModel):
-    filename: str | None = None
-    storage_path: str | None = None
+    voice_model_filename: str | None = None
+    voice_model_storage_path: str | None = None
+    index_filename: str | None = None
+    index_storage_path: str | None = None
 
 # Import and update_forward_refs at the end of the file
 VoiceModelProject.model_rebuild()

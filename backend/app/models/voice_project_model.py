@@ -23,7 +23,7 @@ class VoiceModelProject(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="voice_model_projects")
     uploaded_voices = relationship("UploadedVoice", back_populates="voice_model_project")
-    voice_model = relationship("VoiceModel", back_populates="voice_model_project")
+    voice_model = relationship("VoiceModel", back_populates="voice_model_project", uselist=False)
 
 class UploadedVoice(Base):
     __tablename__ = "uploaded_voices"
@@ -33,14 +33,16 @@ class UploadedVoice(Base):
     storage_path = Column(String, nullable=False)
     category = Column(Integer, nullable=False)
     voice_model_project_id = Column(String(36), ForeignKey("voice_model_projects.id"))
-    voice_model_project = relationship("VoiceModelProject", back_populates="uploaded_voices")
+    voice_model_project = relationship("VoiceModelProject", back_populates="uploaded_voices", uselist=False)
 
 class VoiceModel(Base):
     __tablename__ = "voice_models"
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()), index=True)
     created_at = Column(DateTime, default=datetime.now)
-    filename = Column(String, nullable=False)
-    storage_path = Column(String, nullable=False)
+    voice_model_filename = Column(String, nullable=False)
+    voice_model_storage_path = Column(String, nullable=False)
+    index_filename = Column(String, nullable=False)
+    index_storage_path = Column(String, nullable=False)
     voice_model_project_id = Column(String(36), ForeignKey("voice_model_projects.id"))
-    voice_model_project = relationship("VoiceModelProject", back_populates="voice_model")
+    voice_model_project = relationship("VoiceModelProject", back_populates="voice_model", uselist=False)

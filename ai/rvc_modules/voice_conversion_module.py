@@ -32,18 +32,26 @@ class VoiceConversionModule:
         self.voice_model = VC(rvc_config)        
         self.voice_separation_model = initialize_voice_separation_model(self.voice_separation_args)
 
-    def voice_separation(self, music_path, save_root_vocal, save_root_ins, format='wav'):  
+    def voice_separation(self, music_path, save_root_vocal, save_root_ins, format='wav', callback=None):  
         vocal_path, instrument_path = uvr(self.voice_separation_model, music_path, save_root_vocal, save_root_ins, format)
+        if callback:
+            callback(vocal_path, instrument_path)
+        return vocal_path, instrument_path
 
-    def inference(self, voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path):
+    def inference(self, voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path, callback=None):
         output_voice_path = rvc_inference(self.voice_model, voice_model_path, input_voice_path, output_voice_path, index_path, self.inference_config)
         output_mix_path = mix_voice_and_instrument(output_voice_path, input_instrument_path, output_mix_path)
+        if callback:
+            callback(output_voice_path, output_mix_path)
+        return output_voice_path, output_mix_path
 
-    def train(self, voice_dir, output_dir):
+    def train(self, voice_dir, output_dir, callback=None):
         preprocess_dataset(voice_dir, output_dir, self.train_args)
         extract_f0_feature(output_dir, self.train_args)
         trained_voice_path = click_train(output_dir, self.train_args)
         trained_index_path = train_index(output_dir, self.train_args)
+        if callback:
+            callback(trained_voice_path, trained_index_path)
         return trained_voice_path, trained_index_path
 
     def setting_config(self, config, config_name):

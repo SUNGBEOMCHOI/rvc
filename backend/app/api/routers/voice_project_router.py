@@ -6,12 +6,12 @@ from fastapi.responses import JSONResponse
 from fastapi import Body
 
 from app.db.session import get_db
-from app.crud.voice_project_crud import get_voice_projects_by_user_id, create_voice_project, update_audio_voice_project
+from app.crud.voice_project_crud import get_voice_projects_by_user_id, create_voice_project, update_audio_voice_project, train_voice_model
 from app.crud.user_crud import get_current_user
 from app.errors import HttpErrorCode
 from app.core.settings import get_settings
 import app.schemas as schemas
-from app.api.dependencies import oauth2_scheme
+from app.api.dependencies import oauth2_scheme, get_voice_conversion_manager
 
 router = APIRouter(
     prefix="/voice-project",
@@ -41,7 +41,7 @@ def create_project(project: schemas.VoiceModelProjectCreate, token=Depends(oauth
 async def update_audio(project_id: str = Body(), category:int = Body(), file: UploadFile = File(...), token=Depends(oauth2_scheme), db=Depends(get_db), settings=Depends(get_settings)):
     user = get_current_user(db, token, settings)
     
-    user_storage_path = f"{settings.STORAGE_PATH}/{user.id}/voice_project/{project_id}"
+    user_storage_path = f"{settings.STORAGE_PATH}/{user.id}/{settings.VOICE_PROJECT_PATH}/{project_id}/{settings.VOICE_UPLOAD_PATH}"
     if not os.path.exists(user_storage_path):
         os.makedirs(user_storage_path)
     
@@ -55,3 +55,18 @@ async def update_audio(project_id: str = Body(), category:int = Body(), file: Up
 
     # 성공 메시지 반환
     return JSONResponse(status_code=200, content={"message": "File uploaded successfully!", "file_path": file_location})
+
+@router.post("/project/train")
+async def train(project: schemas.VoiceModelProjectTrain, voice_converison_manager=Depends(get_voice_conversion_manager), token=Depends(oauth2_scheme), db=Depends(get_db), settings=Depends(get_settings)):
+    user = get_current_user(db, token, settings)
+
+    if not user:
+        raise HttpErrorCode.USER_NOT_FOUND()
+    
+    projects = get_voice_projects_by_user_id(db, user.id)
+    print([project.id for project in projects])
+    if project.id not in [project.id for project in projects]:
+        raise HttpErrorCode.PROJECT_NOT_FOUND()
+    
+    # 모델 훈련
+    train_voice_model(project.id, voice_converison_manager, db, settings)
