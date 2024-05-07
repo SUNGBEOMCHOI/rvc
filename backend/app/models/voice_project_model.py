@@ -20,6 +20,7 @@ class VoiceModelProject(Base):
     created_at = Column(DateTime, default=datetime.now)
     name = Column(String, nullable=False)
     is_training_done = Column(Boolean, default=False, nullable=False)
+    storage_path = Column(String, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="voice_model_projects")
     uploaded_voices = relationship("UploadedVoice", back_populates="voice_model_project")

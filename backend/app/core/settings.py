@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     VOICE_PROJECT_PATH: str = "voice_project"
     VOICE_UPLOAD_PATH: str = "voice_upload"
     VOICE_MODEL_PATH: str = "voice_model"
+    COVER_PROJECT_PATH: str = "cover_project"
 
 def get_settings():
     return Settings()

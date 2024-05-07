@@ -20,6 +20,7 @@ class CoverProject(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()), index=True)
     name = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now)
+    storage_path = Column(String, nullable=False)
     is_generation_done = Column(Boolean, default=False, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="cover_projects")
