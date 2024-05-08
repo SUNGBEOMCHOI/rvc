@@ -15,6 +15,7 @@ class GeneratedCover(BaseModel):
 
 class CoverProjectCreate(BaseModel):
     name: str
+    user_id: int
 
 class CoverProjectBase(BaseModel):
     id: str

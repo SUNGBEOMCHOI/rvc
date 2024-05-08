@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     VOICE_UPLOAD_PATH: str = "voice_upload"
     VOICE_MODEL_PATH: str = "voice_model"
     COVER_PROJECT_PATH: str = "cover_project"
+    UPLOADED_MUSIC_PATH: str = "uploaded_music"
+    DOWNLOADED_FILE_NAME: str = "downloaded_music.wav" # 유튜브 음원 다운로드 파일명
 
 def get_settings():
     return Settings()

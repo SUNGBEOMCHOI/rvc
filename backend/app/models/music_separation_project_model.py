@@ -18,16 +18,17 @@ class MusicSeparationProject(Base):
     __tablename__ = "music_separation_projects"
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()), index=True)
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, default="")
     created_at = Column(DateTime, default=datetime.now)
-    cover_project_id = Column(String(36), ForeignKey("cover_projects.id"))
     is_separation_done = Column(Boolean, default=False, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="music_separation_projects")
+    cover_project_id = Column(String(36), ForeignKey("cover_projects.id"), unique=True, nullable=True)
     cover_project = relationship("CoverProject", back_populates="music_separation_project")
-    uploaded_music = relationship("UploadedMusic", back_populates="music_separation_project")
-    separated_instrument = relationship("SeparatedInstrument", back_populates="music_separation_project")
-    separated_voice = relationship("SeparatedVoice", back_populates="music_separation_project")
+    uploaded_music_id = Column(String(36), ForeignKey("uploaded_musics.id"), unique=True, nullable=True)
+    uploaded_music = relationship("UploadedMusic", back_populates="music_separation_project", uselist=False)
+    separated_instrument = relationship("SeparatedInstrument", back_populates="music_separation_project", uselist=False)
+    separated_voice = relationship("SeparatedVoice", back_populates="music_separation_project", uselist=False)
 
 class UploadedMusic(Base):
     __tablename__ = "uploaded_musics"
@@ -36,8 +37,8 @@ class UploadedMusic(Base):
     filename = Column(String, nullable=False)
     storage_path = Column(String, nullable=False)
     youtube_link = Column(String, nullable=True)
-    music_separation_project_id = Column(String(36), ForeignKey("music_separation_projects.id"))
-    music_separation_project = relationship("MusicSeparationProject", back_populates="uploaded_music")
+    music_separation_project = relationship("MusicSeparationProject", back_populates="uploaded_music", uselist=False)
+    # music_separation_project_id = Column(String(36), ForeignKey("music_separation_projects.id"), unique=True, nullable=True)
 
 class SeparatedInstrument(Base):
     __tablename__ = "separated_instruments"
@@ -46,8 +47,8 @@ class SeparatedInstrument(Base):
     created_at = Column(DateTime, default=datetime.now)
     filename = Column(String, nullable=False)
     storage_path = Column(String, nullable=False)
-    music_separation_project_id = Column(String(36), ForeignKey("music_separation_projects.id"))
-    music_separation_project = relationship("MusicSeparationProject", back_populates="separated_instrument")
+    music_separation_project_id = Column(String(36), ForeignKey("music_separation_projects.id"), unique=True, nullable=True)
+    music_separation_project = relationship("MusicSeparationProject", back_populates="separated_instrument", uselist=False)
 
 class SeparatedVoice(Base):
     __tablename__ = "separated_voices"
@@ -56,5 +57,5 @@ class SeparatedVoice(Base):
     created_at = Column(DateTime, default=datetime.now)
     filename = Column(String, nullable=False)
     storage_path = Column(String, nullable=False)
-    music_separation_project_id = Column(String(36), ForeignKey("music_separation_projects.id"))
-    music_separation_project = relationship("MusicSeparationProject", back_populates="separated_voice")
+    music_separation_project_id = Column(String(36), ForeignKey("music_separation_projects.id"), unique=True, nullable=True)
+    music_separation_project = relationship("MusicSeparationProject", back_populates="separated_voice", uselist=False)

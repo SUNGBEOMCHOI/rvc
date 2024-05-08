@@ -33,10 +33,11 @@ class VoiceConversionModule:
         self.voice_separation_model = initialize_voice_separation_model(self.voice_separation_args)
 
     def voice_separation(self, music_path, save_root_vocal, save_root_ins, format='wav', callback=None):  
-        vocal_path, instrument_path = uvr(self.voice_separation_model, music_path, save_root_vocal, save_root_ins, format)
+        voice_path, instrument_path = uvr(self.voice_separation_model, music_path, save_root_vocal, save_root_ins, format)
+        print(voice_path, instrument_path)
         if callback:
-            callback(vocal_path, instrument_path)
-        return vocal_path, instrument_path
+            callback(voice_path, instrument_path)
+        return voice_path, instrument_path
 
     def inference(self, voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path, callback=None):
         output_voice_path = rvc_inference(self.voice_model, voice_model_path, input_voice_path, output_voice_path, index_path, self.inference_config)

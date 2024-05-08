@@ -9,6 +9,7 @@ from fastapi import Form, Body
 from app.db.session import get_db
 from app.crud.voice_project_crud import get_voice_projects_by_user_id, create_voice_project, update_audio_voice_project, train_voice_model, delete_voice_project
 from app.crud.user_crud import get_current_user
+from app.crud.music_separation_crud import separate_voice_and_instrument
 from app.errors import HttpErrorCode
 from app.core.settings import get_settings
 import app.schemas as schemas
@@ -67,7 +68,6 @@ async def update_audio(project_id: str=Form(...), category: int=Form(...), file:
 @router.post("/project/train")
 async def train(project: schemas.VoiceModelProjectBase, voice_converison_manager=Depends(get_voice_conversion_manager), token=Depends(oauth2_scheme), db=Depends(get_db), settings=Depends(get_settings)):
     user = get_current_user(db, token, settings)
-
     if not user:
         raise HttpErrorCode.USER_NOT_FOUND()
     
@@ -83,7 +83,6 @@ async def train(project: schemas.VoiceModelProjectBase, voice_converison_manager
 @router.delete("/project")
 def delete_project(project: Annotated[schemas.VoiceModelProjectBase, Body()], token=Depends(oauth2_scheme), db=Depends(get_db), settings=Depends(get_settings)):
     user = get_current_user(db, token, settings)
-
     if not user:
         raise HttpErrorCode.USER_NOT_FOUND()
     

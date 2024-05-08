@@ -12,10 +12,16 @@ class MusicSeparationProject(BaseModel):
     separated_instrument: Optional['SeparatedInstrument'] = None
     separated_voice: Optional['SeparatedVoice'] = None
 
+class MusicSeparationProjectCreate(BaseModel):
+    name: str | None = ""
+    user_id: int
+    cover_project_id: str | None = None
+    uploaded_music_id: str | None = None
+
 class UploadedMusic(BaseModel):
-    filename: str
-    storage_path: str
-    youtube_link: str = None
+    filename: str | None = None
+    storage_path: str | None = None
+    youtube_link: str | None = None
 
 class SeparatedInstrument(BaseModel):
     filename: str
