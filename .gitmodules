@@ -1,3 +1,6 @@
 [submodule "ai/Retrieval-based-Voice-Conversion-WebUI"]
 	path = ai/Retrieval-based-Voice-Conversion-WebUI
 	url = https://github.com/SUNGBEOMCHOI/Retrieval-based-Voice-Conversion-WebUI.git
+[submodule "ai/python-audio-separator"]
+	path = ai/python-audio-separator
+	url = https://github.com/SUNGBEOMCHOI/python-audio-separator
