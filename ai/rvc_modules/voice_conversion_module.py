@@ -10,7 +10,7 @@ import ffmpeg
 
 from infer.modules.vc.modules import VC
 from configs.config import Config as RVCConfig
-from modules.voice_mr_separation.voice_separation import uvr, initialize_voice_separation_model
+# from modules.voice_mr_separation.voice_separation import uvr, initialize_voice_separation_model
 from modules.infer.inference import rvc_inference
 from modules.infer.mix_voice_instrument import mix_voice_and_instrument
 from modules.train.preprocess import preprocess_dataset
@@ -30,14 +30,14 @@ class VoiceConversionModule:
         self.train_args['pretrained_d'] = os.path.join(rvc_project_path, self.train_args.get('pretrained_d'))
         
         self.voice_model = VC(rvc_config)        
-        self.voice_separation_model = initialize_voice_separation_model(self.voice_separation_args)
+        # self.voice_separation_model = initialize_voice_separation_model(self.voice_separation_args)
 
     def voice_separation(self, music_path, save_root_vocal, save_root_ins, format='wav', callback=None):  
-        voice_path, instrument_path = uvr(self.voice_separation_model, music_path, save_root_vocal, save_root_ins, format)
-        print(voice_path, instrument_path)
-        if callback:
-            callback(voice_path, instrument_path)
-        return voice_path, instrument_path
+        # voice_path, instrument_path = uvr(self.voice_separation_model, music_path, save_root_vocal, save_root_ins, format)
+        # if callback:
+        #     callback(voice_path, instrument_path)
+        # return voice_path, instrument_path
+        raise NotImplementedError
 
     def inference(self, voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path, callback=None):
         output_voice_path = rvc_inference(self.voice_model, voice_model_path, input_voice_path, output_voice_path, index_path, self.inference_config)
