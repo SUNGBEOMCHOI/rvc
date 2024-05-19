@@ -47,3 +47,6 @@ torchfcpe
 ffmpy==0.3.1
 python-dotenv>=1.0.0
 av
+onnx
+onnx2torch
+onnxruntime-gpu @ https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/onnxruntime-gpu
