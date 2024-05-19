@@ -8,16 +8,19 @@ from queue import Queue
 from threading import Thread
 
 from ai.rvc_modules.voice_conversion_module import VoiceConversionModule
+from ai.rvc_modules.voice_separation_module import VoiceSeparationModule
 
 class VoiceConversionManager:
     _instance = None
     _voice_conversion_module = None
+    _voice_separation_module = None
     _request_queue = Queue()
 
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(VoiceConversionManager, cls).__new__(cls)
             cls._voice_conversion_module = VoiceConversionModule()
+            cls._voice_separation_module = VoiceSeparationModule()
             cls._start_request_handler()
         return cls._instance
 
@@ -41,7 +44,10 @@ class VoiceConversionManager:
     @classmethod
     def _process_request(cls, request):
         method_name, args, kwargs = request
-        method = getattr(cls._voice_conversion_module, method_name)
+        if method_name == 'voice_separation':
+            method = getattr(cls._voice_separation_module, method_name)
+        else:
+            method = getattr(cls._voice_conversion_module, method_name)
         print('VoiceConversionManager: _process_request, method:', method_name, 'args:', args, 'kwargs:', kwargs)
         method(*args, **kwargs)
 
