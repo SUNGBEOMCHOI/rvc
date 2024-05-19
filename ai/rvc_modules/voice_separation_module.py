@@ -13,8 +13,8 @@ class VoiceSeparationModule:
         config = self.load_config(config_path)
         self.separator = self.create_separator(config)
 
-    def voice_separation(self, music_path, save_vocal_path, save_ins_path, callback=None):
-        vocal_path, ins_path = self.separator.separate(music_path, save_vocal_path, save_ins_path)
+    def voice_separation(self, music_path, save_root_vocal, save_root_ins, callback=None):
+        vocal_path, ins_path = self.separator.separate(music_path, save_root_vocal, save_root_ins)
         if callback:
             callback(vocal_path, ins_path)
         return vocal_path, ins_path
@@ -43,3 +43,12 @@ class VoiceSeparationModule:
         config = configparser.ConfigParser()
         config.read(config_path)
         return config
+    
+if __name__ == '__main__':
+    voice_separation_module = VoiceSeparationModule()
+    
+    # Test voice separation
+    music_path = '/home/choi/desktop/rvc/ai/data/user2/input/music/origin_music.mp3'
+    save_root_vocal = '/home/choi/desktop/rvc/ai/data/user2/output/music'
+    save_root_ins = '/home/choi/desktop/rvc/ai/data/user2/output/music'
+    voice_separation_module.voice_separation(music_path, save_root_vocal, save_root_ins)
