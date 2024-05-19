@@ -54,8 +54,8 @@ class VoiceConversionManager:
     def get_voice_conversion_module(self):
         return self._voice_conversion_module
 
-    def voice_separation(self, music_path, save_root_vocal, save_root_ins, format='wav', callback=None):
-        self._request_queue.put(('voice_separation', (music_path, save_root_vocal, save_root_ins, format, callback), {}))
+    def voice_separation(self, music_path, save_root_vocal, save_root_ins, callback=None):
+        self._request_queue.put(('voice_separation', (music_path, save_root_vocal, save_root_ins, callback), {}))
 
     def inference(self, voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path, callback=None):
         self._request_queue.put(('inference', (voice_model_path, input_voice_path, input_instrument_path, output_voice_path, output_mix_path, index_path, callback), {}))
